@@ -66,6 +66,38 @@ vim.opt.rtp:prepend(lazypath)
 --
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
+--
+
+-- 
+local linters = {
+    javascript = {
+        "eslint_d"
+    },
+    typescript = {
+        "eslint_d"
+    },
+
+    python = {
+        "ruff"
+    },
+
+    json = {
+        "jsonlint"
+    },
+
+    lua = {
+        "luacheck"
+    },
+
+    markdown = {
+        "markdownlint"
+    },
+
+    yaml = {
+        "yamllint"
+    },
+}
+
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
@@ -264,6 +296,19 @@ require('lazy').setup({
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
+
+  {
+    -- Linter
+    'mfussenegger/nvim-lint',
+    config = function()
+      local lint = require("lint")
+      lint.linters_by_ft = linters
+    end
+  },
+
+  {
+    "rshkarin/mason-nvim-lint",
+  },
 }, {})
 
 -- [[ Setting options ]]
@@ -619,6 +664,39 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
+
+-- [[ Configure DAP ]]
+-- TODO
+-- https://github.com/mfussenegger/nvim-dap 
+-- https://github.com/rcarriga/nvim-dap-ui
+
+-- [[ Configure Linters ]]
+-- https://www.reddit.com/r/neovim/comments/15pj1oi/using_nvimlint_as_a_nullls_alternative_for_linters/
+
+-- Lint dependencies
+local linter_names = {}
+
+for _, linter_info in pairs(linters) do
+    for _, linter in pairs(linter_info) do
+        table.insert(linter_names, linter)
+    end
+end
+
+require('mason-nvim-lint').setup({
+    ensure_installed = linter_names
+})
+
+-- Lint trigger
+vim.api.nvim_create_autocmd({ "InsertLeave", "BufWritePost", "BufReadPost" }, {
+    callback = function()
+        local lint_status, lint = pcall(require, "lint")
+        if lint_status then
+            lint.try_lint()
+        end
+    end,
+})
+
+
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`

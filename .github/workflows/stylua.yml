@@ -1,3 +1,4 @@
+---
 # Check Lua Formatting
 name: Check Lua Formatting
 on: pull_request
@@ -15,4 +16,3 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
           args: --check .
-

@@ -70,6 +70,7 @@ vim.opt.rtp:prepend(lazypath)
 
 --
 local linters = {
+  -- {% if provision_full_setup | bool %}
     javascript = {
         "eslint_d"
     },
@@ -92,6 +93,7 @@ local linters = {
     yaml = {
         "yamllint"
     },
+  -- {% endif %}
 }
 
 require('lazy').setup({
@@ -518,10 +520,10 @@ vim.defer_fn(function()
       swap = {
         enable = true,
         swap_next = {
-          ['<leader>a'] = '@parameter.inner',
+          ['<leader>p'] = '@parameter.inner',
         },
         swap_previous = {
-          ['<leader>A'] = '@parameter.inner',
+          ['<leader>P'] = '@parameter.inner',
         },
       },
     },
@@ -605,6 +607,7 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
+  {% if provision_full_setup %}
   -- Programming languages
   pyright = {},
   rust_analyzer = {},
@@ -622,6 +625,7 @@ local servers = {
   html = {},
   cssls = {},
   tsserver = {},
+  {% endif %}
 
   -- Tools
   bashls = {},

@@ -70,7 +70,7 @@ vim.opt.rtp:prepend(lazypath)
 
 --
 local linters = {
-  -- {% if provision_full_setup | bool %}
+  {% if provision_full_setup | bool %}
     javascript = {
         "eslint_d"
     },
@@ -93,7 +93,7 @@ local linters = {
     yaml = {
         "yamllint"
     },
-  -- {% endif %}
+  {% endif %}
 }
 
 require('lazy').setup({
@@ -625,7 +625,6 @@ local servers = {
   html = {},
   cssls = {},
   tsserver = {},
-  {% endif %}
 
   -- Tools
   bashls = {},
@@ -648,6 +647,7 @@ local servers = {
 
   -- Web dev
   htmx = {},
+  {% endif %}
   {% endif %}
 }
 

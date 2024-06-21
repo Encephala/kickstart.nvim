@@ -1,3 +1,5 @@
+-- Note: This file should be rendered by jinja, it can't be used directly
+
 --[[
 
 =====================================================================

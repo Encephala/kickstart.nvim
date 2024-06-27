@@ -297,6 +297,11 @@ require('lazy').setup({
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
 
+  'tpope/vim-surround',
+  'tpope/vim-repeat',
+
+  { 'm4xshen/autoclose.nvim', opts = {} },
+
   {
     -- Linter
     'mfussenegger/nvim-lint',

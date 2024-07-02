@@ -651,9 +651,6 @@ local servers = {
 
   -- Tools
   ansiblels = {},
-
-  -- Web dev
-  htmx = {},
   {% endif %}
   {% endif %}
 }

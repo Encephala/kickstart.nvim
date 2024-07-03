@@ -334,6 +334,7 @@ vim.o.mouse = ''
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 -- vim.o.clipboard = 'unnamedplus'
+{% if provision_is_desktop %}
 vim.g.clipboard = {
     name = 'WslClipboard',
     copy = {
@@ -346,6 +347,7 @@ vim.g.clipboard = {
     },
     cache_enabled = false,
 }
+{% endif %}
 
 vim.keymap.set('n', '<leader>y', '"+y')
 vim.keymap.set('v', '<leader>y', '"+y')

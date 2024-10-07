@@ -72,7 +72,7 @@ vim.opt.rtp:prepend(lazypath)
 
 --
 local linters = {
-  {% if provision_full_setup | bool %}
+{% if provision_full_setup | bool %}
     javascript = {
         "eslint_d"
     },
@@ -95,7 +95,7 @@ local linters = {
     yaml = {
         "yamllint"
     },
-  {% endif %}
+{% endif %}
 }
 
 require('lazy').setup({
@@ -334,7 +334,7 @@ vim.o.mouse = ''
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 -- vim.o.clipboard = 'unnamedplus'
-{% if provision_is_desktop %}
+{% if provision_is_desktop | bool %}
 vim.g.clipboard = {
     name = 'WslClipboard',
     copy = {
@@ -642,7 +642,7 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  {% if provision_full_setup %}
+{% if provision_full_setup | bool %}
   -- Programming languages
   pyright = {},
   rust_analyzer = {},
@@ -673,14 +673,14 @@ local servers = {
   yamlls = {},
   lemminx = {}, -- XML
 
-  {% if provision_is_desktop %}
+{% if provision_is_desktop | bool %}
   -- Programming languages
   r_language_server = {},
 
   -- Tools
   ansiblels = {},
-  {% endif %}
-  {% endif %}
+{% endif %}
+{% endif %}
 }
 
 -- Setup neovim lua configuration
